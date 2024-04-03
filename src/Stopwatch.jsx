@@ -13,7 +13,7 @@ const Stopwatch = () => {
         if (isRunning) {
             intervalId = setInterval(() => {
                 time += 1
-                dispatch(setClock(time + 1), 10)
+                dispatch(setClock(time), 10)
             })
         }
         return () => clearInterval(intervalId);
