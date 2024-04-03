@@ -11,10 +11,7 @@ const Stopwatch = () => {
     useEffect(() => {
         let intervalId;
         if (isRunning) {
-            intervalId = setInterval(() => {
-                time += 1
-                dispatch(setClock(time), 10)
-            })
+            intervalId = setInterval(() => dispatch(setClock(++time)), 10)
         }
         return () => clearInterval(intervalId);
     }, [isRunning]);
