@@ -1,30 +1,26 @@
-import { STARTSTOPWATCH, STOPSTOPWATCH, RESETSTOPWATCH } from "./actionTypes"
+import { CHANGERUNNING, RESETCLOCK, SETCLOCK } from "./actionTypes"
 
 const initialState = {
-    // stopwatch: [],
     elapsed: 0,
-    running: false,
+    isRunning: false,
 }
 
 const stopwatchReducer = (state = initialState, action) => {
     switch (action.type) {
-        case STARTSTOPWATCH:
+        case CHANGERUNNING:
             return {
-                // stopwatch: [...state.stopwatch, { elapsed: action.payload.elapsed, running: true }]
-                elapsed: state.elapsed,
-                running: true
+                elapsed: action.payload.elapsed,
+                isRunning: !state.isRunning
             }
-        case STOPSTOPWATCH:
+        case RESETCLOCK:
             return {
-                // stopwatch: [...state.stopwatch, { elapsed: action.payload.elapsed, running: false }]
-                elapsed: state.elapsed,
-                running: false
-            }
-        case RESETSTOPWATCH:
-            return {
-                // stopwatch: [...state.stopwatch, { elapsed: 0, running: false }]
                 elapsed: 0,
-                running: false
+                isRunning: false
+            }
+        case SETCLOCK:
+            return {
+                elapsed: action.payload.elapsed,
+                isRunning: state.isRunning
             }
         default:
             return state

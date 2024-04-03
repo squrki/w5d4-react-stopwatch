@@ -2,10 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import { Provider } from 'react-redux'
-import store from './Stopwatch.jsx'
+import { createStore } from 'redux'
+import stopwatchReducer from './redux/reducer.js'
+import { configureStore } from '@reduxjs/toolkit'
 
-{/* <Provider store={store}> */ }
-// </Provider>
+const store = createStore(stopwatchReducer)
+// const store = configureStore(stopwatchReducer())
+
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <App />
+  <Provider store={store}>
+    <App />
+  </Provider>
 )

@@ -1,59 +1,20 @@
-// import React, { useState } from 'react'
-// import { useDispatch, useSelector } from 'react-redux';
-// import { startStopwatch, stopStopwatch, resetStopwatch, } from './redux/actions';
-
-
-// export const Stopwatch = () => {
-//     // const elapsed = useSelector((state) => state.elapsed)
-//     // const running = useSelector((state) => state.running)
-//     // const dispatch = useDispatch()
-
-//     // const handleStart = (elapsed) => {
-//     //     dispatch(startStopwatch(elapsed))
-//     // }
-
-//     // const handleStop = (elapsed) => {
-//     //     dispatch(stopStopwatch(elapsed))
-
-//     // }
-
-//     // const handleReset = (elapsed) => {
-//     //     dispatch(resetStopwatch(elapsed))
-//     // }
-
-//     return (
-//         <>
-//             {/* <div>Stopwatch</div>
-//             <div className="timer">
-//                 <span className="digits">
-//                     {("0" + Math.floor((state.elapsed / 60000) % 60)).slice(-2)}:
-//                 </span>
-//                 <span className="digits">
-//                     {("0" + Math.floor((state.elapsed / 1000) % 60)).slice(-2)}.
-//                 </span>
-//                 <span className="digits mili-sec">
-//                     {("0" + ((state.elapsed / 10) % 100)).slice(-2)}
-//                 </span>
-//             </div>
-//             <button onClick={handleStart}>Start</button>
-//             <button onClick={handleStop}>Stop</button>
-//             <button onClick={handleReset}>Reset</button> */}
-//             <h1>HELLO</h1>
-//         </>
-//     )
-// }
-
 import React, { useState, useEffect } from "react";
-import "./stopwatch.css";
+import { useDispatch, useSelector } from 'react-redux';
+import { changeRunning, resetClock, setClock } from "./redux/actions";
+import "./Stopwatch.css";
 
 const Stopwatch = () => {
-    const [time, setTime] = useState(0);
-    const [isRunning, setIsRunning] = useState(false);
+    let time = useSelector((state) => state.elapsed)
+    const isRunning = useSelector((state) => state.isRunning)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         let intervalId;
         if (isRunning) {
-            intervalId = setInterval(() => setTime(prevTime => prevTime + 1), 10);
+            intervalId = setInterval(() => {
+                time += 1
+                dispatch(setClock(time + 1), 10)
+            })
         }
         return () => clearInterval(intervalId);
     }, [isRunning]);
@@ -63,12 +24,11 @@ const Stopwatch = () => {
     }, []);
 
     const toggleRunning = () => {
-        setIsRunning(!isRunning);
+        dispatch(changeRunning(time, isRunning));
     };
 
     const reset = () => {
-        setTime(0);
-        setIsRunning(false);
+        dispatch(resetClock())
     };
 
     const formatTimeUnit = (unit) => {

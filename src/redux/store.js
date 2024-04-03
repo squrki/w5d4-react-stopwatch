@@ -1,7 +1,7 @@
-import { createStore } from "redux"
 import stopwatchReducer from "./reducer"
+import { configureStore } from "@reduxjs/toolkit"
 
-const store = createStore(stopwatchReducer)
+const store = configureStore(stopwatchReducer)
 
 export default store
 

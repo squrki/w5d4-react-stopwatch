@@ -1,17 +1,20 @@
-import { STARTSTOPWATCH, STOPSTOPWATCH, RESETSTOPWATCH } from "./actionTypes"
+import { CHANGERUNNING, RESETCLOCK, SETCLOCK } from "./actionTypes"
 
-export const startStopwatch = (elapsed) => ({
-    type: STARTSTOPWATCH,
-    payload: { elapsed },
+export const setClock = (time) => ({
+    type: SETCLOCK,
+    payload: { elapsed: time },
 })
 
-export const stopStopwatch = (elapsed) => ({
-    type: STOPSTOPWATCH,
-    payload: { elapsed },
+export const changeRunning = (time, on) => ({
+    type: CHANGERUNNING,
+    payload: { elapsed: time, isRunning: on },
 })
 
-export const resetStopwatch = (elapsed) => ({
-    type: RESETSTOPWATCH,
-    payload: { elapsed },
+export const resetClock = () => ({
+    type: RESETCLOCK,
+    payload: {
+        isRunning: false,
+        elapsed: 0
+    },
 })
 
